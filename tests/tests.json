@@ -1,0 +1,75 @@
+{
+  "defaults": {
+    "description": "Workflow test for mutect",
+    "metrics_calculate": "calculate.sh",
+    "metrics_compare": "compare.sh",
+    "output_metrics_dir": "/.mounts/labs/gsi/testdata/mutect/output_metrics/1.0",
+    "parameters": {
+      "wdl_options": {
+        "write_to_cache": false,
+        "read_from_cache": false
+      }
+    }
+  },
+  "tests": [
+    {
+      "id": "GeneralSampleTest1",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect.tumorBam": "/.mounts/labs/gsi/testdata/mutect/input_data/PCSI_0773_Pa_P_PE_315_EX.bam",
+          "mutect.tumorBai": "/.mounts/labs/gsi/testdata/mutect/input_data/PCSI_0773_Pa_P_PE_315_EX.bam.bai",
+          "mutect.tumorFileNamePrefix": "PCSI_0773_Pa_P_PE_315_EX",
+          "mutect.normalBam": "/.mounts/labs/gsi/testdata/mutect/input_data/PCSI_0773_Ly_R_PE_366_EX.bam",
+          "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/PCSI_0773_Ly_R_PE_366_EX.bam.bai",
+          "mutect.normalFileNamePrefix": "PCSI_0773_Ly_R_PE_366_EX",
+          "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
+          "mutect.doBamSort": true
+        }
+      }
+    },
+    {
+      "id": "GeneralSampleTest2",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect.tumorBam": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam",
+          "mutect.tumorBai": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam.bai",
+          "mutect.tumorFileNamePrefix": "SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated",
+          "mutect.normalBam": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam",
+          "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam.bai",
+          "mutect.normalFileNamePrefix": "SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated",
+          "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
+          "mutect.doBamSort": true
+        }
+      }
+    },
+    {
+      "id": "GeneralSampleTest3",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect.tumorBam": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam",
+          "mutect.tumorBai": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam.bai",
+          "mutect.tumorFileNamePrefix": "SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated",
+          "mutect.normalBam": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam",
+          "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam.bai",
+          "mutect.normalFileNamePrefix": "SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated",
+          "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
+          "mutect.runMutect.mutectExtraArgs": "--strand_artifact_lod -99999",
+          "mutect.doBamSort": true
+        }
+      }
+    },
+    {
+      "id": "TumorOnlyModeTest",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect.tumorBam": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam",
+          "mutect.tumorBai": "/.mounts/labs/gsi/testdata/mutect/input_data/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam.bai",
+          "mutect.tumorFileNamePrefix": "SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated",
+          "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
+          "mutect.runMutect.downsamplingType": "NONE",
+          "mutect.doBamSort": true
+        }
+      }
+    }
+  ]
+}
