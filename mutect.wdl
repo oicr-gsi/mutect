@@ -279,9 +279,9 @@ task runMutect {
   }
 
   String outputTumorBasename = basename(tumorBam, '.bam')
-  String outFile = outputTumorBasename + mutectTag + ".out"
-  String covFile = outputTumorBasename + mutectTag + ".wig"
-  String vcfFile = outputTumorBasename + mutectTag + ".vcf"
+  String outFile = outputTumorBasename + "." + mutectTag + ".out"
+  String covFile = outputTumorBasename + "." + mutectTag + ".wig"
+  String vcfFile = outputTumorBasename + "." + mutectTag + ".vcf"
 
   command <<<
     set -euo pipefail
@@ -369,12 +369,12 @@ task mergeOutput {
     timeout: "Hours before task timeout"
   }
 
-  String outputPrefix = outputBasename + mutectTag
+  String outputPrefix = outputBasename + "." + mutectTag
 
   command <<<
     set -euo pipefail
 
-    vcftools vcf-concat ~{sep=" " vcfFiles} | vcftools vcf-sort > "~{outputPrefix}.vcf"
+    vcf-concat ~{sep=" " vcfFiles} | vcf-sort > "~{outputPrefix}.vcf"
 
     tail -n +3 ~{sep=" " outFiles} >> "~{outputPrefix}.out"
 
