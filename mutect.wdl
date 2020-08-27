@@ -474,6 +474,8 @@ task updateVcfHeader {
     timeout: "Hours before task timeout"
   }
 
+  String vcf_name = basename(vcf)
+
   command <<<
     set -euo pipefail
 
@@ -582,7 +584,7 @@ task updateVcfHeader {
     out.close()
     CODE
 
-    bgzip ~{vcf} && tabix -p vcf ~{vcf}.gz
+    bgzip ~{vcf_name} && tabix -p vcf ~{vcf_name}.gz
   >>>
 
   runtime {
@@ -593,8 +595,8 @@ task updateVcfHeader {
   }
 
   output {
-    File updatedVcf = "~{vcf}.gz"
-    File vcfIndex = "~{vcf}.gz.tbi"
+    File updatedVcf = "~{vcf_name}.gz"
+    File vcfIndex = "~{vcf_name}.gz.tbi"
   }
 }
 
