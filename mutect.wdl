@@ -45,14 +45,19 @@ workflow mutect {
 
   Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
 
+  Array[File] sortedBams_ = select_all([sortBams.sortedBams])[0] # workaround for converting Array[File]? to Array[File]
+  Array[File] sortedBais_ = select_all([sortBams.sortedBais])[0]
+  Pair[File?, File?] sortedTumor = (sortedBams_[0], sortedBais_[0])
+  Pair[File?, File?] sortedNormal = (sortedBams_[1], sortedBais_[1])
+
   scatter(subintervals in splitStringToArray.out) {
     call runMutect {
       input:
-        tumorBam = select_first([sortBams.tumorBamSorted, tumorBam]),
-        tumorBai = select_first([sortBams.tumorBaiReordered, tumorBai]),
+        tumorBam = select_first([sortedTumor.left, tumorBam]),
+        tumorBai = select_first([sortedTumor.right, tumorBai]),
         tumorBamBasename = tumorFileNamePrefix,
-        normalBam = select_first([sortBams.normalBamSorted, normalBam]),
-        normalBai = select_first([sortBams.normalBaiReordered, normalBai]),
+        normalBam = select_first([sortedNormal.left, normalBam]),
+        normalBai = select_first([sortedNormal.right, normalBai]),
         normalBamBasename = normalFileNamePrefix,
         pon = pon,
         ponIdx = ponIdx,
@@ -209,16 +214,14 @@ task sortBams {
   }
 
   output {
-    File tumorBamSorted = "~{tumorFileNamePrefix}.sort.reordered.bam"
-    File tumorBaiReordered = "~{tumorFileNamePrefix}.sort.reordered.bam.bai"
-    File normalBamSorted = "~{normalFileNamePrefix}.sort.reordered.bam"
-    File normalBaiReordered = "~{normalFileNamePrefix}.sort.reordered.bam.bai"
+    Array[File] sortedBams = glob("*.bam")
+    Array[File] sortedBais = glob("*.bai")
   }
 
   meta {
     output_meta: {
-      tumorBamSorted: "Sorted tumor bam file.",
-      normalBamSorted: "Sorted normal bam file."
+      sortedBams: "Sorted bams",
+      sortedBais: "Sorted bam indices"
     }
   }
 }
@@ -578,7 +581,7 @@ task updateVcfHeader {
     vcf_reader = vcf.Reader(filename="~{vcf}", compressed=False)
     modifiedVcf = modify_header_and_records(vcf_reader)
 
-    with open("~{vcf}", mode='w+') as out:
+    with open("~{vcf_name}", mode='w+') as out:
       out.writelines(modifiedVcf[0])
       out.writelines(modifiedVcf[1])
     out.close()
