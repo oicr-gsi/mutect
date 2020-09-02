@@ -153,8 +153,6 @@ task runMutect {
     String? normalFileName
     String outputFileNamePrefix
     String refFasta = "$HG19_ROOT/hg19_random.fa"
-    String refFai = "$HG19_ROOT/hg19_random.fa.fai"
-    String refDict = "$HG19_ROOT/hg19_random.dict"
     String cosmic = "$HG19_COSMIC_ROOT/cosmic_v54.hg19.vcf"
     String dbSNP = "$HG19_DBSNP_LEFTALIGNED_ROOT/dbsnp_138.hg19.leftAligned.vcf.gz"
     File? pon
@@ -203,9 +201,6 @@ task runMutect {
 
   command <<<
     set -euo pipefail
-
-    cp ~{refFai} .
-    cp ~{refDict} .
 
     if [ -f "~{normalBam}" ]; then
       normal_command_line="--input_file:normal ~{normalBam} --normal_sample_name ~{normalFileName}"
