@@ -204,6 +204,8 @@ task runMutect {
 
     if [ -f "~{normalBam}" ]; then
       normal_command_line="--input_file:normal ~{normalBam} --normal_sample_name ~{normalFileName}"
+    else
+      normal_command_line=""
     fi
 
     if [ -f "~{intervalFile}" ]; then
