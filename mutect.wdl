@@ -48,7 +48,10 @@ workflow mutect {
   Array[File] sortedBams_ = select_all([sortBams.sortedBams])[0] # workaround for converting Array[File]? to Array[File]
   Array[File] sortedBais_ = select_all([sortBams.sortedBais])[0]
   Pair[File?, File?] sortedTumor = (sortedBams_[0], sortedBais_[0])
-  Pair[File?, File?] sortedNormal = (sortedBams_[1], sortedBais_[1])
+
+  if (defined(normalBam)) {
+    Pair[File?, File?] sortedNormal = (sortedBams_[1], sortedBais_[1])
+  }
 
   scatter(subintervals in splitStringToArray.out) {
     call runMutect {
@@ -56,8 +59,8 @@ workflow mutect {
         tumorBam = select_first([sortedTumor.left, tumorBam]),
         tumorBai = select_first([sortedTumor.right, tumorBai]),
         tumorBamBasename = tumorFileNamePrefix,
-        normalBam = select_first([sortedNormal.left, normalBam]),
-        normalBai = select_first([sortedNormal.right, normalBai]),
+        normalBam = select_first([select_all([sortedNormal])[0].left, normalBam]),
+        normalBai = select_first([select_all([sortedNormal])[0].right, normalBai]),
         normalBamBasename = normalFileNamePrefix,
         pon = pon,
         ponIdx = ponIdx,
