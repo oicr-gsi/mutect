@@ -4,16 +4,16 @@ workflow mutect {
   input {
     File tumorBam
     File tumorBai
-    String tumorFileNamePrefix
+    String tumorFileName
     File? normalBam
     File? normalBai
-    String? normalFileNamePrefix
+    String? normalFileName
+    String outputFileNamePrefix
     File? pon
     File? ponIdx
     File? intervalFile
     String? intervalsToParallelizeBy
     Int? intervalPadding
-    Boolean doBamSort
   }
 
   parameter_meta {
@@ -33,35 +33,18 @@ workflow mutect {
       intervalsToParallelizeBy = intervalsToParallelizeBy
   }
 
-  if (doBamSort) {
-    call sortBams {
-      input:
-        tumorBam = tumorBam,
-        tumorFileNamePrefix = tumorFileNamePrefix,
-        normalBam = normalBam,
-        normalFileNamePrefix = normalFileNamePrefix
-    }
-  }
-
   Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
-
-  Array[File] sortedBams_ = select_all([sortBams.sortedBams])[0] # workaround for converting Array[File]? to Array[File]
-  Array[File] sortedBais_ = select_all([sortBams.sortedBais])[0]
-  Pair[File?, File?] sortedTumor = (sortedBams_[0], sortedBais_[0])
-
-  if (defined(normalBam)) {
-    Pair[File?, File?] sortedNormal = (sortedBams_[1], sortedBais_[1])
-  }
 
   scatter(subintervals in splitStringToArray.out) {
     call runMutect {
       input:
-        tumorBam = select_first([sortedTumor.left, tumorBam]),
-        tumorBai = select_first([sortedTumor.right, tumorBai]),
-        tumorBamBasename = tumorFileNamePrefix,
-        normalBam = select_first([select_all([sortedNormal])[0].left, normalBam]),
-        normalBai = select_first([select_all([sortedNormal])[0].right, normalBai]),
-        normalBamBasename = normalFileNamePrefix,
+        tumorBam = tumorBam,
+        tumorBai = tumorBai,
+        tumorFileName = tumorFileName,
+        normalBam = normalBam,
+        normalBai = normalBai,
+        normalFileName = normalFileName,
+        outputFileNamePrefix = outputFileNamePrefix,
         pon = pon,
         ponIdx = ponIdx,
         intervalsProvided = intervalsProvided,
@@ -80,7 +63,7 @@ workflow mutect {
       outFiles = outs,
       wigFiles = wigs,
       vcfFiles = vcfs,
-      outputBasename = tumorFileNamePrefix # todo: check if this should be tumor name?
+      outputBasename = outputFileNamePrefix
   }
 
   call calculateCallability {
@@ -158,87 +141,17 @@ task splitStringToArray {
   }
 }
 
-task sortBams {
-  input {
-    String modules = "samtools/1.9 hg19/p13 picard/2.21.2"
-    File tumorBam
-    String tumorFileNamePrefix
-    File? normalBam
-    String? normalFileNamePrefix
-    Int picardMaxMemMb = 10000
-    String refDict = "$HG19_ROOT/hg19_random.dict"
-    String picard = "$PICARD_ROOT/picard.jar"
-    Int memory = 16
-    Int timeout = 4
-    Int threads = 8
-  }
-
-  parameter_meta {
-    modules: "Names and versions of modules to load."
-    tumorBam: "Tumor bam file to be sorted."
-    normalBam: "Normal bam file to be sorted."
-    picardMaxMemMb: "Max amount of memory to be used by Picard ReorderSam"
-    refDict: "Reference sequence dictionary file."
-    memory: "Memory allocated for this job."
-    timeout: "Hours before task timeout."
-  }
-
-  command <<<
-    set -euo pipefail
-
-    samtools sort ~{tumorBam} -o tumor.sort.bam
-
-    java -Xmx~{picardMaxMemMb}M \
-    -jar ~{picard} ReorderSam \
-    INPUT=tumor.sort.bam \
-    OUTPUT="~{tumorFileNamePrefix}.sort.reordered.bam" \
-    SEQUENCE_DICTIONARY=~{refDict}
-
-    samtools index "~{tumorFileNamePrefix}.sort.reordered.bam" "~{tumorFileNamePrefix}.sort.reordered.bam.bai"
-
-    if [ -f "~{normalBam}" ]; then
-      samtools sort ~{normalBam} -o normal.sort.bam
-
-      java -Xmx~{picardMaxMemMb}M \
-      -jar ~{picard} ReorderSam \
-      INPUT=normal.sort.bam \
-      OUTPUT="~{normalFileNamePrefix}.sort.reordered.bam" \
-      SEQUENCE_DICTIONARY=~{refDict}
-
-      samtools index "~{normalFileNamePrefix}.sort.reordered.bam" "~{normalFileNamePrefix}.sort.reordered.bam.bai"
-    fi
-  >>>
-
-  runtime {
-    modules: "~{modules}"
-    memory: "~{memory} GB"
-    timeout: "~{timeout}"
-    cpu: "~{threads}"
-  }
-
-  output {
-    Array[File] sortedBams = glob("*.bam")
-    Array[File] sortedBais = glob("*.bai")
-  }
-
-  meta {
-    output_meta: {
-      sortedBams: "Sorted bams",
-      sortedBais: "Sorted bam indices"
-    }
-  }
-}
-
 task runMutect {
   input {
     String modules = "mutect/1.1.7 hg19/p13 hg19-dbsnp-leftaligned/138 hg19-cosmic/v54"
     String mutectTag = "mutect"
     File tumorBam
     File tumorBai
-    String tumorBamBasename
+    String tumorFileName
     File? normalBam
     File? normalBai
-    String? normalBamBasename
+    String? normalFileName
+    String outputFileNamePrefix
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     String refFai = "$HG19_ROOT/hg19_random.fa.fai"
     String refDict = "$HG19_ROOT/hg19_random.dict"
@@ -284,10 +197,9 @@ task runMutect {
     timeout: "Hours before task timeout"
   }
 
-  String outputTumorBasename = basename(tumorBam, '.bam')
-  String outFile = outputTumorBasename + "." + mutectTag + ".out"
-  String covFile = outputTumorBasename + "." + mutectTag + ".wig"
-  String vcfFile = outputTumorBasename + "." + mutectTag + ".vcf"
+  String outFile = outputFileNamePrefix + "." + mutectTag + ".out"
+  String covFile = outputFileNamePrefix + "." + mutectTag + ".wig"
+  String vcfFile = outputFileNamePrefix + "." + mutectTag + ".vcf"
 
   command <<<
     set -euo pipefail
@@ -296,7 +208,7 @@ task runMutect {
     cp ~{refDict} .
 
     if [ -f "~{normalBam}" ]; then
-      normal_command_line="--input_file:normal ~{normalBam} --normal_sample_name ~{normalBamBasename}"
+      normal_command_line="--input_file:normal ~{normalBam} --normal_sample_name ~{normalFileName}"
     fi
 
     if [ -f "~{intervalFile}" ]; then
@@ -317,7 +229,7 @@ task runMutect {
     --cosmic ~{cosmic} \
     --dbsnp ~{dbSNP} \
     --input_file:tumor ~{tumorBam} \
-    --tumor_sample_name ~{tumorBamBasename} \
+    --tumor_sample_name ~{tumorFileName} \
     $normal_command_line \
     $interval_command_line \
     --out ~{outFile} \
