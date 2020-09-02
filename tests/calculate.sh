@@ -4,5 +4,9 @@ set -o errexit
 set -o pipefail
 
 cd $1
+ls | sed 's/.*\.//' | sort | uniq -c
+echo "Numbers of variants:"
+find . -name "*vcf.gz" -follow -type f -printf "echo -n \"%p \"; zcat %p | grep -v '^#' | wc -l;" | bash
 
-find *vcf* -type f -size +0 | sed 's/.*\.//' | sort | uniq -c
+module load jq
+jq -c . *.callability_metrics.json
