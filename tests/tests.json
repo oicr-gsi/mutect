@@ -23,6 +23,8 @@
           "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
           "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
           "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+          "mutect.runMutect.cosmic": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+          "mutect.runMutect.dbSNP": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz",
           "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY"
         }
       }
@@ -38,6 +40,8 @@
           "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
           "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
           "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+          "mutect.runMutect.cosmic": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+          "mutect.runMutect.dbSNP": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz",
           "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
           "mutect.intervalFile": "/.mounts/labs/gsi/testdata/mutect/input_data/hg19_random.genome.sizes.bed"
         }
@@ -54,6 +58,8 @@
           "mutect.normalBai": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
           "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
           "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+          "mutect.runMutect.cosmic": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+          "mutect.runMutect.dbSNP": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz",
           "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
           "mutect.runMutect.mutectExtraArgs": "--strand_artifact_lod -99999"
         }
@@ -67,6 +73,8 @@
           "mutect.tumorBai": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bai",
           "mutect.tumorFileName": "GSM732316.SRR222176.sorted.rg",
           "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+          "mutect.runMutect.cosmic": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+          "mutect.runMutect.dbSNP": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz",
           "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
           "mutect.runMutect.downsamplingType": "NONE"
         }

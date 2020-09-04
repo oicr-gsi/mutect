@@ -143,7 +143,7 @@ task splitStringToArray {
 
 task runMutect {
   input {
-    String modules = "mutect/1.1.7 hg19/p13 hg19-dbsnp-leftaligned/138 hg19-cosmic/v54"
+    String modules = "mutect/1.1.7 hg19/p13"
     String mutectTag = "mutect"
     File tumorBam
     File tumorBai
@@ -153,8 +153,8 @@ task runMutect {
     String? normalFileName
     String outputFileNamePrefix
     String refFasta = "$HG19_ROOT/hg19_random.fa"
-    String cosmic = "$HG19_COSMIC_ROOT/cosmic_v54.hg19.vcf"
-    String dbSNP = "$HG19_DBSNP_LEFTALIGNED_ROOT/dbsnp_138.hg19.leftAligned.vcf.gz"
+    File cosmic
+    File dbSNP
     File? pon
     File? ponIdx
     File? intervalFile
