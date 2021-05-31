@@ -41,7 +41,7 @@
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": {
                 "contents": {
-                    "configuration": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -217,7 +217,7 @@
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": {
                 "contents": {
-                    "configuration": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -382,7 +382,7 @@
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": {
                 "contents": {
-                    "configuration": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -525,7 +525,7 @@
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": {
                 "contents": {
-                    "configuration": "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
                     "externalIds": [
                         {
                             "id": "TEST",
