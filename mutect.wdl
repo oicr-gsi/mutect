@@ -143,7 +143,7 @@ task splitStringToArray {
 
 task runMutect {
   input {
-    String modules = "mutect/1.1.7 hg19/p13"
+    String modules = "mutect/1.1.7 hg19/p13 hg19-dbsnp-leftaligned/138"
     String mutectTag = "mutect"
     File tumorBam
     File tumorBai
