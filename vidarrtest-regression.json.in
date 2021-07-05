@@ -63,6 +63,18 @@
                 },
                 "type": "EXTERNAL"
             },
+            "mutect.runMutect.dbSNPidx": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz.tbi",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
             "mutect.runMutect.downsampleToCoverage": null,
             "mutect.runMutect.downsampleToFraction": null,
             "mutect.runMutect.downsamplingType": null,
@@ -239,6 +251,18 @@
                 },
                 "type": "EXTERNAL"
             },
+            "mutect.runMutect.dbSNPidx": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz.tbi",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
             "mutect.runMutect.downsampleToCoverage": null,
             "mutect.runMutect.downsampleToFraction": null,
             "mutect.runMutect.downsamplingType": null,
@@ -404,6 +428,18 @@
                 },
                 "type": "EXTERNAL"
             },
+            "mutect.runMutect.dbSNPidx": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz.tbi",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
             "mutect.runMutect.downsampleToCoverage": null,
             "mutect.runMutect.downsampleToFraction": null,
             "mutect.runMutect.downsamplingType": null,
@@ -538,6 +574,18 @@
             "mutect.runMutect.dbSNP": {
                 "contents": {
                     "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
+            "mutect.runMutect.dbSNPidx": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/modulator/sw/data/hg19-dbsnp-leftaligned-138/dbsnp_138.hg19.leftAligned.vcf.gz.tbi",
                     "externalIds": [
                         {
                             "id": "TEST",
