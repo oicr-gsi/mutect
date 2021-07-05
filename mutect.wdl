@@ -13,7 +13,7 @@ workflow mutect {
     File? ponIdx
     File? intervalFile
     String? intervalsToParallelizeBy
-    Int? intervalPadding
+    Int intervalPadding = 10
   }
 
   parameter_meta {
@@ -118,7 +118,6 @@ task splitStringToArray {
     String lineSeparator = ","
     Int memory = 1
     Int timeout = 1
-    String modules = ""
   }
 
   parameter_meta {
@@ -126,7 +125,6 @@ task splitStringToArray {
     lineSeparator: "Used to separate each chromosome into a string, default is ',' "
     timeout: "Hours before task timeout"
     memory: "Memory allocated for this job"
-    modules: "Names and versions of modules to load"
   }
 
   command <<<
@@ -137,7 +135,6 @@ task splitStringToArray {
 
   runtime {
     memory:  "~{memory} GB"
-    modules: "~{modules}"
     timeout: "~{timeout}"
   }
 
@@ -171,7 +168,7 @@ task runMutect {
     File? ponIdx
     File? intervalFile
     Boolean intervalsProvided
-    Int? intervalPadding = 10
+    Int intervalPadding = 10
     Array[String]? intervals
     String? downsamplingType
     String? downsampleToFraction
@@ -328,14 +325,12 @@ task mergeOutput {
 
 task calculateCallability {
   input {
-    String modules = ""
     File wig
     Int memory = 4
     Int timeout = 4
   }
 
   parameter_meta {
-    modules: "Names and versions of modules to load"
     wig: ".wig coverage files to generate callability metrics for"
     memory: "Memory allocated for this job"
     timeout: "Hours before task timeout"
@@ -362,7 +357,6 @@ task calculateCallability {
   >>>
   runtime {
       memory:  "~{memory} GB"
-      modules: "~{modules}"
       timeout: "~{timeout}"
     }
 
