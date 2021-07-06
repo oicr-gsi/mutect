@@ -1,0 +1,7 @@
+{
+    "names": [
+        "mutect_matched",
+        "mutect_tumor_only"
+    ],
+    "wdl": "mutect.wdl"
+}

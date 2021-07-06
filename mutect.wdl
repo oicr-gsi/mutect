@@ -13,14 +13,17 @@ workflow mutect {
     File? ponIdx
     File? intervalFile
     String? intervalsToParallelizeBy
-    Int? intervalPadding
+    Int intervalPadding = 10
   }
 
   parameter_meta {
     tumorBam: "Tumor BAM file"
     tumorBai: "Index of tumor BAM file"
+    tumorFileName: "Name for tumor file"
     normalBam: "Normal BAM file"
     normalBai: "Index of normal BAM file"
+    normalFileName: "Name for normal file"
+    outputFileNamePrefix: "Output prefix for the result file"
     pon: "Panel of normals VCF"
     ponIdx: "Index of panel of normals VCF"
     intervalFile: "BED file with intervals of interest"
@@ -98,6 +101,14 @@ workflow mutect {
         url: ""
       }
     ]
+    output_meta: {
+      finalVcf: "Output vcf with somatic variants",
+      vcfIndex: "Index of the output vcf",
+      wig: "Somatic variants in wiggle format",
+      out: "Out file, useful for understanding why some of the variants were not called",
+      callabilityMetrics: "Metrics from callability analysis task"      
+    }
+
   }
 }
 
@@ -107,7 +118,6 @@ task splitStringToArray {
     String lineSeparator = ","
     Int memory = 1
     Int timeout = 1
-    String modules = ""
   }
 
   parameter_meta {
@@ -115,7 +125,6 @@ task splitStringToArray {
     lineSeparator: "Used to separate each chromosome into a string, default is ',' "
     timeout: "Hours before task timeout"
     memory: "Memory allocated for this job"
-    modules: "Names and versions of modules to load"
   }
 
   command <<<
@@ -126,7 +135,6 @@ task splitStringToArray {
 
   runtime {
     memory:  "~{memory} GB"
-    modules: "~{modules}"
     timeout: "~{timeout}"
   }
 
@@ -143,7 +151,7 @@ task splitStringToArray {
 
 task runMutect {
   input {
-    String modules = "mutect/1.1.7 hg19/p13"
+    String modules = "mutect/1.1.7 hg19/p13 hg19-dbsnp-leftaligned/138"
     String mutectTag = "mutect"
     File tumorBam
     File tumorBai
@@ -155,11 +163,12 @@ task runMutect {
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     File cosmic
     File dbSNP
+    File dbSNPidx
     File? pon
     File? ponIdx
     File? intervalFile
     Boolean intervalsProvided
-    Int? intervalPadding = 10
+    Int intervalPadding = 10
     Array[String]? intervals
     String? downsamplingType
     String? downsampleToFraction
@@ -178,17 +187,18 @@ task runMutect {
     normalBam: "Normal BAM file"
     normalBai: "Index of normal BAM file"
     refFasta: "Reference fasta"
-    cosmic: ""
-    dbSNP: ""
+    cosmic: "File for cosmic annotations"
+    dbSNP: "File for dbSNP annotations"
+    dbSNPidx: "File for index of dbSNP annotations"
     pon: "Panel of normals VCF"
     ponIdx: "Index of panel of normals VCF"
     intervalFile: "BED file with intervals of interest"
     intervalsProvided: "If a string of chromosomes is provided, use it as an interval in Mutect call"
     intervals: "Split number of Mutect jobs by chromosomes to speed it up"
     intervalPadding: "Used when an interval file is provided (Default 10bp)"
-    downsamplingType: ""
-    downsampleToFraction: ""
-    downsampleToCoverage: ""
+    downsamplingType: "Optional, GATK Mutect parameter. Should be NONE for TS libraries"
+    downsampleToFraction: "Optional, fraction to downsample to"
+    downsampleToCoverage: "Optional, downsample to coverage"
     mutectExtraArgs: "Extra arguments that can be passed to Mutect call"
     threads: "Requested CPU threads"
     memory: "Memory allocated for this job"
@@ -201,7 +211,7 @@ task runMutect {
 
   command <<<
     set -euo pipefail
-
+    
     if [ -f "~{normalBam}" ]; then
       normal_command_line="--input_file:normal ~{normalBam} --normal_sample_name ~{normalFileName}"
     else
@@ -231,11 +241,7 @@ task runMutect {
     $interval_command_line \
     --out ~{outFile} \
     --coverage_file ~{covFile} \
-    --vcf ~{vcfFile} \
-    ~{"--downsampling_type " + downsamplingType} \
-    ~{"--downsample_to_fraction " + downsampleToFraction} \
-    ~{"--downsample_to_coverage " + downsampleToCoverage} \
-    ~{"--normal_panel " + pon} \
+    --vcf ~{vcfFile}  ~{"--downsampling_type " + downsamplingType} ~{"--downsample_to_fraction " + downsampleToFraction}  ~{"--downsample_to_coverage " + downsampleToCoverage} ~{"--normal_panel " + pon} \
     ~{mutectExtraArgs}
   >>>
 
@@ -288,7 +294,7 @@ task mergeOutput {
 
   command <<<
     set -euo pipefail
-
+    
     vcf-concat ~{sep=" " vcfFiles} | vcf-sort > "~{outputPrefix}.vcf"
 
     tail -n +3 ~{sep=" " outFiles} >> "~{outputPrefix}.out"
@@ -319,14 +325,12 @@ task mergeOutput {
 
 task calculateCallability {
   input {
-    String modules = ""
     File wig
     Int memory = 4
     Int timeout = 4
   }
 
   parameter_meta {
-    modules: "Names and versions of modules to load"
     wig: ".wig coverage files to generate callability metrics for"
     memory: "Memory allocated for this job"
     timeout: "Hours before task timeout"
@@ -353,7 +357,6 @@ task calculateCallability {
   >>>
   runtime {
       memory:  "~{memory} GB"
-      modules: "~{modules}"
       timeout: "~{timeout}"
     }
 
@@ -385,15 +388,17 @@ task updateVcfHeader {
     vcf: "Input .vcf to update"
     caller: "Variant caller"
     version: "Version of the variant caller"
+    reference: "Id of the used reference assembly"
     memory: "Memory allocated for this job"
     timeout: "Hours before task timeout"
+    threads: "Number of threads to use"
   }
 
   String vcf_name = basename(vcf)
 
   command <<<
     set -euo pipefail
-
+    
     python3<<CODE
     import vcf
     import re
