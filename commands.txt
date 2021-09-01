@@ -1,0 +1,85 @@
+## Commands
+This section lists command(s) run by mutect workflow
+
+* Running mutect
+
+Call SNVs with muTect package from Broad Institute!
+
+Format the list of intervals, change a line separator to newline
+
+```
+
+    echo INTERVALS_TO_PARRALELIZE_BY_STRING | tr 'LINE_SEPARATOR' '\n'
+
+```
+
+Running muTect:
+
+```
+   
+    Run some bash code to prepare the command:
+
+    java -Xmx[JOB_MEMORY-8]g -jar mutect.jar
+    --analysis_type MuTect 
+    --reference_sequence REF_FASTA
+    --cosmic COSMIC
+    --dbsnp DBSNP
+    --input_file:tumor TUMOR_BAM
+    --tumor_sample_name TUMOR_FILE_NAME
+    NORMAL_COMMAND_LINE    # depends on the inputs
+    INTERVALS_COMMAND_LINE # depends on the inputs 
+    --out OUT_FILE
+    --coverage_file COVERAGE_FILE
+    --vcf VCF_FILE
+
+    ... The following parameters are optional:
+
+    --downsampling_type DOWNSAMPLING_TYPE
+    --downsample_to_fraction DOWNSAMPLE_TO_FRACTION
+    --downsample_to_coverage DOWNSAMPLE_TO_COVERAGE
+    --normal_panel PANEL_OF_NORMALS
+    MUTECT_EXTRA_ARGUMENTS
+
+```
+
+Post-processing (Concatenation of chromosome-specific results):
+
+```
+    vcf-concat VCF_FILES | vcf-sort > PREFIX.vcf
+    tail -n +3 OUT_FILES >> PREFIX.out
+    tail -n +1 WIG_FILES >> PREFIX.wig
+
+```
+
+Callability metrics:
+
+```
+    zcat -f INPUT_WIG | \
+    awk '
+    $0 == "0" || $0 == "1" {
+        vals[$0]++
+    }
+    END {
+        fail = (vals["0"] == "" ? 0 : vals["0"])
+        pass = (vals["1"] == "" ? 0 : vals["1"])
+        if (fail == 0 && pass == 0)
+            callability = 0
+        else
+            callability = pass / (pass + fail)
+        printf "{\n  \"pass\": %.0f,\n  \"fail\": %.0f,\n  \"callability\": %.6f\n}\n", pass, fail, callability
+    }
+    ' > WIG_BASENAME.callability_metrics.json
+```
+
+Post-processing vcf files:
+
+```
+    Fixing vcf header, FORMAT fields
+    swapping NORMAL and TUMOR columns, if needed.
+
+    Embedded python code, see the source of mutect.wdl
+
+    ...  
+   
+    bgzip VCF_NAME && tabix -p vcf VCF_NAME.gz
+```
