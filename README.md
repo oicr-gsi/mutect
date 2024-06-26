@@ -78,13 +78,13 @@ Parameter|Value|Default|Description
 
 ### Outputs
 
-Output | Type | Description
----|---|---
-`finalVcf`|File|Output vcf with somatic variants
-`vcfIndex`|File|Index of the output vcf
-`wig`|File|Somatic variants in wiggle format
-`out`|File|Out file, useful for understanding why some of the variants were not called
-`callabilityMetrics`|File|Metrics from callability analysis task
+Output | Type | Description | Labels
+---|---|---|---
+`finalVcf`|File|Output vcf with somatic variants|vidarr_label: finalVcf
+`vcfIndex`|File|Index of the output vcf|vidarr_label: vcfIndex
+`wig`|File|Somatic variants in wiggle format|vidarr_label: wig
+`out`|File|Out file, useful for understanding why some of the variants were not called|vidarr_label: out
+`callabilityMetrics`|File|Metrics from callability analysis task|vidarr_label: callabilityMetrics
 
 
 ## Commands
@@ -93,8 +93,8 @@ This section lists command(s) run by mutect workflow
 * Running mutect
  
 Call SNVs with muTect package from Broad Institute!
- 
-Format the list of intervals, change a line separator to newline
+
+### Format the list of intervals, change a line separator to newline
  
 ```
  
@@ -102,7 +102,7 @@ Format the list of intervals, change a line separator to newline
  
 ```
  
-Running muTect:
+### Running muTect:
  
 ```
     
@@ -131,7 +131,7 @@ Running muTect:
  
 ```
  
-Post-processing (Concatenation of chromosome-specific results):
+### Post-processing (Concatenation of chromosome-specific results):
 
 ```
     vcf-concat VCF_FILES | vcf-sort > PREFIX.vcf
@@ -140,7 +140,7 @@ Post-processing (Concatenation of chromosome-specific results):
  
 ```
  
-Callability metrics:
+### Callability metrics:
  
 ```
     zcat -f INPUT_WIG | \
@@ -160,7 +160,7 @@ Callability metrics:
     ' > WIG_BASENAME.callability_metrics.json
 ```
  
-Post-processing vcf files:
+### Post-processing vcf files:
  
 ```
     Fixing vcf header, FORMAT fields

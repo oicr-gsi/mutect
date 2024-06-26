@@ -102,12 +102,27 @@ workflow mutect {
       }
     ]
     output_meta: {
-      finalVcf: "Output vcf with somatic variants",
-      vcfIndex: "Index of the output vcf",
-      wig: "Somatic variants in wiggle format",
-      out: "Out file, useful for understanding why some of the variants were not called",
-      callabilityMetrics: "Metrics from callability analysis task"      
+    finalVcf: {
+        description: "Output vcf with somatic variants",
+        vidarr_label: "finalVcf"
+    },
+    vcfIndex: {
+        description: "Index of the output vcf",
+        vidarr_label: "vcfIndex"
+    },
+    wig: {
+        description: "Somatic variants in wiggle format",
+        vidarr_label: "wig"
+    },
+    out: {
+        description: "Out file, useful for understanding why some of the variants were not called",
+        vidarr_label: "out"
+    },
+    callabilityMetrics: {
+        description: "Metrics from callability analysis task",
+        vidarr_label: "callabilityMetrics"
     }
+}
 
   }
 }
