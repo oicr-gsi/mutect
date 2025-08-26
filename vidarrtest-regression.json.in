@@ -89,7 +89,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "GeneralSampleTest1",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -137,7 +140,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -232,7 +235,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "IntervalFileTest",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -280,7 +286,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/workflow_test_02.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_02.metrics",
                 "type": "script"
             }
         ]
@@ -375,7 +381,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "MutectExtraArgumentsTest",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -423,7 +432,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/workflow_test_03.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_03.metrics",
                 "type": "script"
             }
         ]
@@ -496,7 +505,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "TumorOnlyModeTest",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -544,7 +556,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/workflow_test_04.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_04.metrics",
                 "type": "script"
             }
         ]
