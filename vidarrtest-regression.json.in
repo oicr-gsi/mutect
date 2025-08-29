@@ -13,7 +13,7 @@
             "mutect.mergeOutput.timeout": null,
             "mutect.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -25,7 +25,7 @@
             },
             "mutect.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -35,8 +35,8 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
-            "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+            "mutect.normalFileName": "Test02.sorted.rg",
+            "mutect.outputFileNamePrefix": "Test_1",
             "mutect.pon": null,
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
@@ -57,7 +57,7 @@
             "mutect.splitStringToArray.timeout": null,
             "mutect.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -69,7 +69,7 @@
             },
             "mutect.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -79,7 +79,7 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.tumorFileName": "GSM732316.SRR222176.sorted.rg",
+            "mutect.tumorFileName": "Test01.sorted.rg",
             "mutect.updateVcfHeader.caller": null,
             "mutect.updateVcfHeader.memory": null,
             "mutect.updateVcfHeader.modules": null,
@@ -89,7 +89,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "GeneralSampleTest1",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -147,7 +150,7 @@
             "mutect.calculateCallability.memory": null,
             "mutect.calculateCallability.modules": null,
             "mutect.calculateCallability.timeout": null,
-            "mutect.intervalFile": "/.mounts/labs/gsi/testdata/mutect/input_data/hg19_random.genome.sizes.bed",
+            "mutect.intervalFile": "/.mounts/labs/gsi/testdata/mutect/test_inputs/hg19_random.genome.sizes.bed",
             "mutect.intervalPadding": null,
             "mutect.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrM,chrX,chrY",
             "mutect.mergeOutput.memory": null,
@@ -156,7 +159,7 @@
             "mutect.mergeOutput.timeout": null,
             "mutect.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -168,7 +171,7 @@
             },
             "mutect.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -178,8 +181,8 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
-            "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+            "mutect.normalFileName": "Test02.sorted.rg",
+            "mutect.outputFileNamePrefix": "Test_2",
             "mutect.pon": null,
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
@@ -200,7 +203,7 @@
             "mutect.splitStringToArray.timeout": null,
             "mutect.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -212,7 +215,7 @@
             },
             "mutect.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -222,7 +225,7 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.tumorFileName": "GSM732316.SRR222176.sorted.rg",
+            "mutect.tumorFileName": "Test01.sorted.rg",
             "mutect.updateVcfHeader.caller": null,
             "mutect.updateVcfHeader.memory": null,
             "mutect.updateVcfHeader.modules": null,
@@ -232,7 +235,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "IntervalFileTest",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -299,7 +305,7 @@
             "mutect.mergeOutput.timeout": null,
             "mutect.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -311,7 +317,7 @@
             },
             "mutect.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732315.SRR222175.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test02.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -321,8 +327,8 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.normalFileName": "GSM732315.SRR222175.sorted.rg",
-            "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+            "mutect.normalFileName": "Test02.sorted.rg",
+            "mutect.outputFileNamePrefix": "Test_3",
             "mutect.pon": null,
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
@@ -343,7 +349,7 @@
             "mutect.splitStringToArray.timeout": null,
             "mutect.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -355,7 +361,7 @@
             },
             "mutect.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -365,7 +371,7 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.tumorFileName": "GSM732316.SRR222176.sorted.rg",
+            "mutect.tumorFileName": "Test01.sorted.rg",
             "mutect.updateVcfHeader.caller": null,
             "mutect.updateVcfHeader.memory": null,
             "mutect.updateVcfHeader.modules": null,
@@ -375,7 +381,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "MutectExtraArgumentsTest",
         "metadata": {
             "mutect.callabilityMetrics": {
@@ -443,7 +452,7 @@
             "mutect.normalBai": null,
             "mutect.normalBam": null,
             "mutect.normalFileName": null,
-            "mutect.outputFileNamePrefix": "GSM732316.SRR222176",
+            "mutect.outputFileNamePrefix": "Test_4",
             "mutect.pon": null,
             "mutect.ponIdx": null,
             "mutect.runMutect.cosmic": "/.mounts/labs/gsi/modulator/sw/data/hg19-cosmic-v54/cosmic_v54.hg19.vcf",
@@ -464,7 +473,7 @@
             "mutect.splitStringToArray.timeout": null,
             "mutect.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -476,7 +485,7 @@
             },
             "mutect.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect/input_data/GSM732316.SRR222176.sorted.rg.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect/test_inputs/Test01.sorted.rg.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -486,7 +495,7 @@
                 },
                 "type": "EXTERNAL"
             },
-            "mutect.tumorFileName": "GSM732316.SRR222176.sorted.rg",
+            "mutect.tumorFileName": "Test01.sorted.rg",
             "mutect.updateVcfHeader.caller": null,
             "mutect.updateVcfHeader.memory": null,
             "mutect.updateVcfHeader.modules": null,
@@ -496,7 +505,10 @@
             "mutect.updateVcfHeader.version": null
         },
         "description": "Workflow test for mutect",
-        "engineArguments": {},
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
         "id": "TumorOnlyModeTest",
         "metadata": {
             "mutect.callabilityMetrics": {
