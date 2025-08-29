@@ -140,7 +140,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/GeneralSampleTest1.metrics",
                 "type": "script"
             }
         ]
@@ -286,7 +286,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_02.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/IntervalFileTest.metrics",
                 "type": "script"
             }
         ]
@@ -432,7 +432,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_03.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/MutectExtraArgumentsTest.metrics",
                 "type": "script"
             }
         ]
@@ -556,7 +556,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/workflow_test_04.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect/output_metrics/2.0/TumorOnlyModeTest.metrics",
                 "type": "script"
             }
         ]
